@@ -1,28 +1,63 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <div class="aside-section">
+      <AsideBar/>
+    </div>
+    <div class="content-section">
+      <NavBar />
+      <router-view />
+    </div> -->
+    <router-view/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+// import NavBar from "./components/layouts/NavBar";
+// import AsideBar from "./components/layouts/AsideBar";
 export default {
-  name: 'App',
+  name: "app",
   components: {
-    HelloWorld
-  }
-}
-</script>
 
+  },
+};
+</script>
 <style>
+* {
+  margin: 0;
+  padding: 0;
+}
+html body{
+  width: 100%;
+  height:100%;
+}
 #app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  background-color: #f2f2f2;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
+}
+.aside-section{
+  width: 20%;
+  height:100%;
+}
+.content-section{
+  width: 80%;
+  height: 100%;
 }
 </style>
