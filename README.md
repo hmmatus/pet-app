@@ -1,5 +1,4 @@
 # pet-app
-
 ## Project setup
 ```
 yarn install
