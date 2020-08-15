@@ -57,7 +57,7 @@ export const CREATE_PET_INFO = async (data) => {
             data: data
         })
         console.log(response)
-        if (response.status === 200) {
+        if (response.status === 201) {
             return ({ status: true, message: response.data });
         }
         else {
@@ -68,6 +68,7 @@ export const CREATE_PET_INFO = async (data) => {
     }
 }
 export const PUT_PET_INFO = async (id, data) => {
+    //console.log(id);
     try {
         const response = await axios({
             method: "put",

@@ -1,23 +1,24 @@
 <template>
   <div id="app">
-    <!-- <div class="aside-section">
+    <div class="aside-section">
       <AsideBar/>
     </div>
     <div class="content-section">
       <NavBar />
       <router-view />
-    </div> -->
-    <router-view/>
+    </div>
+    
   </div>
 </template>
 
 <script>
-// import NavBar from "./components/layouts/NavBar";
-// import AsideBar from "./components/layouts/AsideBar";
+import NavBar from "./components/layouts/NavBar";
+import AsideBar from "./components/layouts/AsideBar";
 export default {
   name: "app",
   components: {
-
+    NavBar,
+    AsideBar
   },
 };
 </script>
@@ -26,7 +27,7 @@ export default {
   margin: 0;
   padding: 0;
 }
-html body{
+body{
   width: 100%;
   height:100%;
 }
@@ -54,10 +55,8 @@ html body{
 }
 .aside-section{
   width: 20%;
-  height:100%;
 }
 .content-section{
   width: 80%;
-  height: 100%;
 }
 </style>

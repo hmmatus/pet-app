@@ -1,39 +1,50 @@
 <template>
-  <div class="home-container">
-    <table>
-      <tr class="header-text">
-        <th class="table-column">ID</th>
-        <th class="table-column">Name</th>
-        <th class="table-column">Type</th>
-        <th class="table-column">Color</th>
-        <th class="table-column">Breed</th>
-        <th class="table-column">Gender</th>
-        <th class="table-column">Age</th>
-        <th class="table-column">Created at</th>
-        <th></th>
-      </tr>
-      <tr class="header-text" v-for="pet in pets" v-bind:key="pet.id">
-        <td class="table-column">{{pet.id}}</td>
-        <td class="table-column">{{pet.name}}</td>
-        <td class="table-column">{{pet.kind}}</td>
-        <td class="table-column">
-          <div class="pet-color-div" v-bind:style="{'background-color':pet.color}"></div>
-        </td>
-        <td class="table-column">{{pet.breed}}</td>
-        <td class="table-column">{{pet.gender}}</td>
-        <td class="table-column">{{pet.age}}</td>
-        <td class="table-column">{{pet.created_at}}</td>
-        <td>
-          <div class="actions-container">
-            <button @click="this.update(pet.id)">
-              <img :src="editIcon" />
-            </button>
-            <button @click="this.delete(pet.id)">
-              <img :src="deleteIcon" />
-            </button>
-          </div>
-        </td>
-      </tr>
+  <div class="container">
+    <modal ref="modal" @reload="this.getData()" v-show="showModal" @close="showModal = false"></modal>
+    <div class="tabs is-large" style="background-color:#e6e6e6">
+      <ul>
+        <li class="is-active"><a>All</a></li>
+      </ul>
+    </div>
+    <h1 class="title">Pets</h1>
+    <table class="table">
+      <thead>
+        <tr class="header-text">
+          <th class="table-column">ID</th>
+          <th class="table-column">Name</th>
+          <th class="table-column">Type</th>
+          <th class="table-column">Color</th>
+          <th class="table-column">Breed</th>
+          <th class="table-column">Gender</th>
+          <th class="table-column">Age</th>
+          <th class="table-column">Created at</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="header-text" v-for="pet in pets" v-bind:key="pet.id">
+          <td class="table-column">{{pet.id}}</td>
+          <td class="table-column">{{pet.name}}</td>
+          <td class="table-column">{{pet.kind}}</td>
+          <td class="table-column" style="">
+            <div class="pet-color-div" v-bind:style="{'background-color':pet.color}"></div>
+          </td>
+          <td class="table-column">{{pet.breed}}</td>
+          <td class="table-column">{{pet.gender}}</td>
+          <td class="table-column">{{pet.age}}</td>
+          <td class="table-column">{{pet.created_at}}</td>
+          <td>
+            <div class="actions-container">
+              <button @click="this.openModal(pet)">
+                <img :src="editIcon" />
+              </button>
+              <button @click="this.delete(pet.id)">
+                <img :src="deleteIcon" />
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </template>
@@ -43,13 +54,18 @@ import editIcon from "@/assets/file-edit-outline.png";
 import deleteIcon from "@/assets/trash-can-outline.png";
 import Swal from "sweetalert2";
 import { GET_PET_INFO, DELETE_PET_INFO, PUT_PET_INFO } from "@/utils/requests";
+import modal from "@/components/Modal.vue"
 export default {
   name: "Home",
-  components: {},
+  components: {
+    modal,
+  },
   data: () => ({
     editIcon: editIcon,
     deleteIcon: deleteIcon,
     pets: null,
+    showModal:false,
+    selectedPet:null,
   }),
   mounted() {
     this.getData();
@@ -89,6 +105,7 @@ export default {
           }
         }
       } catch (error) {
+        Swal.fire("Error!", "Something happened "+error, "error");
         console.log(error);
       }
     },
@@ -112,6 +129,12 @@ export default {
         console.log(error);
       }
     },
+    openModal(data){
+      //console.log(data);
+      this.$refs.modal.setItem(data);
+      this.showModal = true;
+
+    }
   },
 };
 </script>
@@ -134,14 +157,15 @@ tr:nth-child(even) {
 .table-column {
   min-width: 5em;
   margin-right: 15em;
-  text-align: center;
+  text-align: center !important;
 }
 .pet-color-div {
   width: 8px;
   height: 8px;
   border-radius: 4px;
   margin: auto;
-}
+  margin-top:0.6em;
+  }
 .actions-container {
   flex-direction: row;
 }
