@@ -1,13 +1,12 @@
 <template>
-  <div id="app">
+  <div id="app" class="app-container">
     <div class="aside-section">
-      <AsideBar/>
+      <AsideBar @update-status-sidebar="updateStatus" />
     </div>
     <div class="content-section">
       <NavBar />
-      <router-view />
+      <router-view @update-status="updateStatus"/>
     </div>
-    
   </div>
 </template>
 
@@ -18,7 +17,14 @@ export default {
   name: "app",
   components: {
     NavBar,
-    AsideBar
+    AsideBar,
+  },
+  methods:{
+    updateStatus(status){
+      if(status==="add"){
+        this.$emit('update-status-sidebar','addPet')
+      }
+    }
   },
 };
 </script>
@@ -27,15 +33,13 @@ export default {
   margin: 0;
   padding: 0;
 }
-body{
+body {
   width: 100%;
-  height:100%;
+  height: 100%;
 }
 #app {
   width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
+  height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   color: #2c3e50;
   background-color: #f2f2f2;
@@ -53,10 +57,40 @@ body{
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-.aside-section{
-  width: 20%;
+.app-container {
+  display: flex;
+  flex-direction: row;
 }
-.content-section{
+.aside-section {
+  width: 20%;
+  position: relative;
+}
+.content-section {
   width: 80%;
+  background-color: #e0e0eb;
+}
+@media screen and (max-width: 320px) {
+  .app-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .aside-section {
+    width: 100%;
+  }
+  .content-section {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .app-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .aside-section {
+    width: 100%;
+  }
+  .content-section {
+    width: 100%;
+  }
 }
 </style>

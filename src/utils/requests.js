@@ -33,7 +33,7 @@ export const DELETE_PET_INFO = async (id) => {
                 token: token,
             }
         })
-        console.log(response)
+        //console.log(response)
         if (response.status === 204) {
             return ({ status: true });
         }
@@ -56,7 +56,7 @@ export const CREATE_PET_INFO = async (data) => {
             },
             data: data
         })
-        console.log(response)
+        //console.log(response)
         if (response.status === 201) {
             return ({ status: true, message: response.data });
         }
@@ -79,7 +79,7 @@ export const PUT_PET_INFO = async (id, data) => {
             },
             data:data
         })
-        console.log(response)
+        //console.log(response)
         if (response.status === 200) {
             return ({ status: true });
         }

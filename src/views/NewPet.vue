@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <PetForm />
+    <PetForm v-bind:formType="'new'" v-on:send-data="(data)=>this.addPet(data)" />
   </div>
 </template>
 <script>
@@ -14,11 +14,13 @@ export default {
   },
   methods: {
     async addPet(data) {
+      console.log(data);
       try {
         const response = await CREATE_PET_INFO(data);
         if (response.status) {
           Swal.fire("Added!", "Your pet has been added.", "success");
           console.log(response.message);
+          this.$emit("update-status","add")
           this.$router.push("/");
         } else {
           throw new Error(response.message);

@@ -17,15 +17,8 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  margin-bottom: 1em;
-}
 .header-container {
   width: 100%;
-  height: 5em;
   background-color: white;
 }
 .aside-container {

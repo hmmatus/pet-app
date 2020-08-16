@@ -31,7 +31,7 @@ export default {
         const response = await PUT_PET_INFO(data.id,data.data);
         if (response.status) {
           Swal.fire("Added!", "Your pet has been updated.", "success");
-          console.log(response.message);
+          //console.log(response.message);
           this.$emit("reload")
           this.$emit("close")
         } else {
@@ -43,7 +43,7 @@ export default {
       }
     },
     setItem(data){
-      console.log("Enter set item modal")
+      //console.log("Enter set item modal")
       this.$refs.PetForm.setItem(data);
     },
     closeModal(){
